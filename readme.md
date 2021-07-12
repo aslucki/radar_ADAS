@@ -6,13 +6,15 @@ It's for a demo purpose only, it would require more work or possible different r
 Supports only Python3
 
 ## Installation
-1. Clone repo to your catkin workspace
+1. Clone the repo to your catkin workspace
 2. From the repo's main directory run:  
    `pip3 install ./src/lib/grove-doppler-radar`
    
 3. Navigate to your catkin workspace and run:  
 `catkin_make`
    
+*Note:* It doesn't follow the recommended installation as described here: http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+
 ## Usage
 1. Start ros master.
 
