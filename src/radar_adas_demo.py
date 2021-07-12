@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-from __future__ import print_function
+#!/usr/bin/env python3
 import time
 
 import serial
@@ -25,20 +24,22 @@ if __name__ == "__main__":
     radar = init_radar()
 
     rate = rospy.Rate(50)
-
+    speed = 0
+    start = None
     while not rospy.is_shutdown():
         info = radar.get_target_info()
         msg = Twist()
-        if info['state'] == 2:
-            msg.linear.x = 0
-            msg.angular.y = 0
-
-            pub.publish(msg)
-            time.sleep(0.2)
+        print(info['speed'])
+        if info['state'] == 2 and info['speed'] > 0.5:
+            start = time.time()
+            speed = 0
+            print("Stop")
         else:
-            msg.linear.x = 0.15
-            msg.angular.y = 0
+            if start is None or time.time() - start > 3:
+                speed = 0.11
 
-            pub.publish(msg)
+        msg.linear.x = speed
+        msg.angular.y = 0
 
+        pub.publish(msg)
         rate.sleep()
